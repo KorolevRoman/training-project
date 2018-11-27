@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Employee (
     document_id     INTEGER,
     document_date   DATE,
     document_number VARCHAR(20),
-    citizenship_id  INTEGER
+    citizenship_id  INTEGER,
     office_id       INTEGER NOT NULL
 );
 
