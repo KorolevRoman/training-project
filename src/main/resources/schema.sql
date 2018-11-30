@@ -9,6 +9,10 @@ CREATE TABLE IF NOT EXISTS Organization (
   is_active BOOLEAN
 );
 
+COMMENT ON TABLE Organization IS 'Таблица хранит информацию об организациях';
+COMMENT ON COLUMN Organization.address IS 'В колонке хранится юридический адрес организации';
+COMMENT ON COLUMN Organization.is_active IS 'Если true, то организация действующая, если false, то закрыта';
+
 CREATE TABLE IF NOT EXISTS Office(
   id              INTEGER PRIMARY KEY AUTO_INCREMENT,
   organization_id INTEGER NOT NULL,
@@ -17,6 +21,11 @@ CREATE TABLE IF NOT EXISTS Office(
   phone           VARCHAR(11),
   is_active       BOOLEAN NOT NULL
 );
+
+COMMENT ON TABLE Office IS 'Таблица хранит информацию об офисах организациии';
+COMMENT ON COLUMN Office.organization_id IS 'в колонке хранится id организации, которой принадлежит офис';
+COMMENT ON COLUMN Office.address IS 'В колонке хранится фактический адрес офиса';
+COMMENT ON COLUMN Office.is_active IS 'Если true, то офис действующий, если false, то недействующий';
 
 ALTER TABLE Office ADD FOREIGN KEY (organization_id) REFERENCES Organization(id);
 CREATE INDEX IX_Office_organization_id ON Office (organization_id);
@@ -27,11 +36,15 @@ CREATE TABLE IF NOT EXISTS Citizenship (
   name VARCHAR(45) NOT NULL
 );
 
+COMMENT ON TABLE Citizenship IS 'Таблица хранит информацию о видах гражданств работников';
+
 CREATE TABLE IF NOT EXISTS Document (
   id   INTEGER PRIMARY KEY AUTO_INCREMENT,
   code INTEGER NOT NULL,
   name VARCHAR(45) NOT NULL
 );
+
+COMMENT ON TABLE Document IS 'Таблица хранит информацию о видах документов, удостоверяющих личность';
 
 CREATE TABLE IF NOT EXISTS Employee (
     id              INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -39,12 +52,23 @@ CREATE TABLE IF NOT EXISTS Employee (
     second_name     VARCHAR(45) NOT NULL,
     middle_name     VARCHAR(45),
     position        VARCHAR(45) NOT NULL,
-    document_id     INTEGER,
-    document_date   DATE,
+    document_id     INTEGER NOT NULL,
+    document_date   DATE NOT NULL,
     document_number VARCHAR(20) UNIQUE NOT NULL,
     citizenship_id  INTEGER,
     office_id       INTEGER NOT NULL
 );
+
+COMMENT ON TABLE Employee IS 'Таблица хранит информацию о сотрудниках организации';
+COMMENT ON COLUMN Employee.first_name IS 'Фамилия';
+COMMENT ON COLUMN Employee.second_name IS 'Имя';
+COMMENT ON COLUMN Employee.middle_name IS 'Отчество';
+COMMENT ON COLUMN Employee.position IS 'Должность сотрудника';
+COMMENT ON COLUMN Employee.document_id IS 'В колонке хранится id документа, удостоверящего личность';
+COMMENT ON COLUMN Employee.document_date IS 'дата выдачи документа, удостоверяющего личность';
+COMMENT ON COLUMN Employee.document_number IS 'серия и номер документа, удостоверяющего личность';
+COMMENT ON COLUMN Employee.citizenship_id IS 'гражданство сотрудника';
+COMMENT ON COLUMN Employee.office_id IS 'офис, в котором работает сотрудник';
 
 ALTER TABLE Employee ADD FOREIGN KEY (document_id) REFERENCES Document(id);
 ALTER TABLE Employee ADD FOREIGN KEY (citizenship_id) REFERENCES Citizenship(id);
