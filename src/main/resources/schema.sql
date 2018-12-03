@@ -60,32 +60,14 @@ COMMENT ON TABLE Document_type IS 'Таблица хранит информац�
 
 ---------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS Document (
-  id           INTEGER PRIMARY KEY AUTO_INCREMENT,
-  code         INTEGER NOT NULL,
-  date_issue   DATE NOT NULL,
-  number       VARCHAR(20) UNIQUE NOT NULL,
-);
-
-ALTER TABLE Document ADD FOREIGN KEY (code) REFERENCES Document_type(code);
-
-COMMENT ON TABLE Document IS 'Таблица хранит информацию о документе, удостоверяющем личность сотрудника';
-COMMENT ON COLUMN Document.date_issue IS 'дата выдачи документа, удостоверяющего личность';
-COMMENT ON COLUMN Document.number IS 'серия и номер документа, удостоверяющего личность';
-
-CREATE INDEX UX_Document_number ON Document (number);
-
-----------------------------------------------------------------------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS Employee (
-    id              INTEGER PRIMARY KEY AUTO_INCREMENT,
-    first_name      VARCHAR(45) NOT NULL,
-    second_name     VARCHAR(45) NOT NULL,
-    middle_name     VARCHAR(45),
-    position        VARCHAR(45) NOT NULL,
-    document_id     INTEGER NOT NULL,
-    citizenship     INTEGER,
-    office_id       INTEGER NOT NULL
+id              INTEGER PRIMARY KEY AUTO_INCREMENT,
+first_name      VARCHAR(45) NOT NULL,
+second_name     VARCHAR(45) NOT NULL,
+middle_name     VARCHAR(45),
+position        VARCHAR(45) NOT NULL,
+citizenship     INTEGER,
+office_id       INTEGER NOT NULL
 );
 
 COMMENT ON TABLE Employee IS 'Таблица хранит информацию о сотрудниках организации';
@@ -93,17 +75,33 @@ COMMENT ON COLUMN Employee.first_name IS 'Фамилия';
 COMMENT ON COLUMN Employee.second_name IS 'Имя';
 COMMENT ON COLUMN Employee.middle_name IS 'Отчество';
 COMMENT ON COLUMN Employee.position IS 'Должность сотрудника';
-COMMENT ON COLUMN Employee.document_id IS 'В колонке хранится id документа, удостоверящего личность';
 COMMENT ON COLUMN Employee.citizenship IS 'гражданство сотрудника';
 COMMENT ON COLUMN Employee.office_id IS 'офис, в котором работает сотрудник';
 
-ALTER TABLE Employee ADD FOREIGN KEY (document_id) REFERENCES Document(id);
 ALTER TABLE Employee ADD FOREIGN KEY (citizenship) REFERENCES Citizenship(code);
 ALTER TABLE Employee ADD FOREIGN KEY (office_id) REFERENCES Office(id);
 
 CREATE INDEX IX_Employee_first_name ON Employee (first_name);
 CREATE INDEX IX_Employee_second_name ON Employee (second_name);
 
+---------------------------------------------------------------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS Document (
+  id           INTEGER PRIMARY KEY AUTO_INCREMENT,
+  employee_id  INTEGER NOT NULL,
+  code         INTEGER NOT NULL,
+  date_issue   DATE NOT NULL,
+  number       VARCHAR(20) UNIQUE NOT NULL,
+);
 
+ALTER TABLE Document ADD FOREIGN KEY (code) REFERENCES Document_type(code);
+ALTER TABLE Document ADD FOREIGN KEY (employee_id) REFERENCES Employee (id);
 
+COMMENT ON TABLE Document IS 'Таблица хранит информацию о документе, удостоверяющем личность сотрудника';
+COMMENT ON COLUMN Document.employee_id IS 'сотрудник, которому принадлежит документ';
+COMMENT ON COLUMN Document.date_issue IS 'дата выдачи документа, удостоверяющего личность';
+COMMENT ON COLUMN Document.number IS 'серия и номер документа, удостоверяющего личность';
+
+CREATE INDEX UX_Document_number ON Document (number);
+
+----------------------------------------------------------------------------------------------------------------

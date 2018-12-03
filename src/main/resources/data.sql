@@ -14,16 +14,17 @@ INSERT INTO Document_type (code, name) VALUES (12, 'Вид на жительст
 INSERT INTO Document_type (code, name) VALUES (07, 'Военный билет');
 INSERT INTO Document_type (code, name) VALUES (10, 'Иностранный паспорт');
 
-INSERT INTO Document (id, code, date_issue, number) VALUES (1, 21, '2001-11-20', '5612 321464');
-INSERT INTO Document (id, code, date_issue, number) VALUES (2, 10, '2005-08-16', '67884304');
-INSERT INTO Document (id, code, date_issue, number) VALUES (3, 21, '2010-04-23', '5612 432942');
-INSERT INTO Document (id, code, date_issue, number) VALUES (4, 12, '2018-04-23', 'ВА 432421');
+INSERT INTO Employee (id, first_name, second_name, middle_name, position, citizenship, office_id)
+VALUES (1, 'Иванов', 'Иван', 'Иванович', 'менеджер', 643, 1);
+INSERT INTO Employee (id, first_name, second_name, middle_name, position, citizenship, office_id)
+VALUES (2, 'Петров', 'Петр', 'Петрович', 'разработчик', 112, 2);
+INSERT INTO Employee (id, first_name, second_name, middle_name, position, citizenship, office_id)
+VALUES (3, 'Васильев', 'Василий', 'Васильевич', 'директор', 643, 3);
+INSERT INTO Employee (id, first_name, second_name, position, citizenship, office_id)
+VALUES (4, 'Сулейманов', 'Ким', 'аналитик', 398, 3);
 
-INSERT INTO Employee (id, first_name, second_name, middle_name, position, document_id,  citizenship, office_id)
-  VALUES (1, 'Иванов', 'Иван', 'Иванович', 'менеджер', 1, 643, 1);
-INSERT INTO Employee (id, first_name, second_name, middle_name, position, document_id,  citizenship, office_id)
-  VALUES (2, 'Петров', 'Петр', 'Петрович', 'разработчик', 2, 112, 2);
-INSERT INTO Employee (id, first_name, second_name, middle_name, position, document_id,  citizenship, office_id)
-  VALUES (3, 'Васильев', 'Василий', 'Васильевич', 'директор', 3, 643, 3);
-INSERT INTO Employee (id, first_name, second_name, position, document_id, citizenship, office_id)
-  VALUES (4, 'Сулейманов', 'Ким', 'аналитик',4, 398, 3);
+INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (1, 1, 21, '2001-11-20', '5612 321464');
+INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (2, 2, 10, '2005-08-16', '67884304');
+INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (3, 3, 21, '2010-04-23', '5612 432942');
+INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (4, 4, 12, '2018-04-23', 'ВА 432421');
+INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (5, 2, 07, '2005-08-30', 'I-КИ 432351');
