@@ -43,8 +43,7 @@ COMMENT ON COLUMN Office.is_active IS 'Если true, то офис действ
 --------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS Citizenship (
-  id   INTEGER PRIMARY KEY AUTO_INCREMENT,
-  code INTEGER NOT NULL,
+  code INTEGER PRIMARY KEY,
   name VARCHAR(45) NOT NULL
 );
 
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS Employee (
     middle_name     VARCHAR(45),
     position        VARCHAR(45) NOT NULL,
     document_id     INTEGER NOT NULL,
-    citizenship_id  INTEGER,
+    citizenship     INTEGER,
     office_id       INTEGER NOT NULL
 );
 
@@ -95,11 +94,11 @@ COMMENT ON COLUMN Employee.second_name IS 'Имя';
 COMMENT ON COLUMN Employee.middle_name IS 'Отчество';
 COMMENT ON COLUMN Employee.position IS 'Должность сотрудника';
 COMMENT ON COLUMN Employee.document_id IS 'В колонке хранится id документа, удостоверящего личность';
-COMMENT ON COLUMN Employee.citizenship_id IS 'гражданство сотрудника';
+COMMENT ON COLUMN Employee.citizenship IS 'гражданство сотрудника';
 COMMENT ON COLUMN Employee.office_id IS 'офис, в котором работает сотрудник';
 
 ALTER TABLE Employee ADD FOREIGN KEY (document_id) REFERENCES Document(id);
-ALTER TABLE Employee ADD FOREIGN KEY (citizenship_id) REFERENCES Citizenship(id);
+ALTER TABLE Employee ADD FOREIGN KEY (citizenship) REFERENCES Citizenship(code);
 ALTER TABLE Employee ADD FOREIGN KEY (office_id) REFERENCES Office(id);
 
 CREATE INDEX IX_Employee_first_name ON Employee (first_name);
