@@ -1,5 +1,6 @@
 package training.training.service.office;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import training.training.view.OfficeView;
 
@@ -8,6 +9,10 @@ import java.util.List;
 
 @Service
 public class OfficeServiceImpl implements OfficeService {
+
+    @Autowired
+    public OfficeServiceImpl() {
+    }
 
     @Override
     public List<OfficeView> offices() {

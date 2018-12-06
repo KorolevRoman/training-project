@@ -1,5 +1,6 @@
 package training.training.service.office;
 
+import org.springframework.validation.annotation.Validated;
 import training.training.view.OfficeView;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 /**
  * Сервис
  */
+@Validated
 public interface OfficeService {
     /**
      * Получить список оффисов

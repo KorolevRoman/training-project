@@ -1,6 +1,7 @@
 package training.training.controller.organization;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import training.training.service.organization.OrganizationService;
 import training.training.view.OrganizationView;
@@ -19,8 +20,9 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
-    @PostMapping(value = "/list", consumes = APPLICATION_JSON_VALUE)
-    public List<OrganizationView> organizations(@RequestParam String name, @RequestParam String inn, @RequestParam Boolean isActive){
+    @PostMapping("/list")
+    @ResponseBody
+    public List<OrganizationView> organizations(){
         return organizationService.organizations();
     }
 

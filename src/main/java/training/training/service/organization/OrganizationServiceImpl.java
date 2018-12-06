@@ -1,7 +1,6 @@
 package training.training.service.organization;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import training.training.view.OrganizationView;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ public class OrganizationServiceImpl implements OrganizationService {
                 "89324243412", true));
         organizationViewList.add(new OrganizationView(2, "Землекопы","ООО Землекопы", "581243536942", "582241001", "ул. Победы, 24",
                 "89376543412", true));
-
         return organizationViewList;
     }
 

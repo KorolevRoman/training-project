@@ -1,5 +1,6 @@
 package training.training.service.organization;
 
+import org.springframework.validation.annotation.Validated;
 import training.training.view.OrganizationView;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 /**
  * Сервис
  */
+@Validated
 public interface OrganizationService {
     /**
      * Получить список организаций
@@ -15,5 +17,11 @@ public interface OrganizationService {
      */
     List<OrganizationView> organizations();
 
+    /**
+     * Получить организацию по id
+     *
+     * @return {@Organization}
+     * @param id
+     */
     OrganizationView organization(Integer id);
 }
