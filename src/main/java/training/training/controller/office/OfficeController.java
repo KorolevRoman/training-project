@@ -9,7 +9,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
 @RestController
-@RequestMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/office", produces = APPLICATION_JSON_VALUE)
 public class OfficeController {
     private final OfficeService officeService;
 
@@ -18,7 +18,7 @@ public class OfficeController {
         this.officeService = officeService;
     }
 
-    @GetMapping("/office/{id}")
+    @GetMapping("/{id}")
     public OfficeView office(@PathVariable Integer id){
         return officeService.office(id);
     }
