@@ -1,4 +1,4 @@
-package training.training.controller.Office;
+package training.training.controller.office;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
