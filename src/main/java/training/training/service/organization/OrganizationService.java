@@ -1,6 +1,5 @@
 package training.training.service.organization;
 
-import training.training.model.Organization;
 import training.training.view.OrganizationView;
 
 import java.util.List;
@@ -10,9 +9,11 @@ import java.util.List;
  */
 public interface OrganizationService {
     /**
-     * Получить список людей
+     * Получить список организаций
      *
      * @return {@Organization}
      */
     List<OrganizationView> organizations();
+
+    OrganizationView organization(Integer id);
 }

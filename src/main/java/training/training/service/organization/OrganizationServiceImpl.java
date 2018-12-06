@@ -14,9 +14,25 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Transactional(readOnly = true)
     public List<OrganizationView> organizations() {
         List<OrganizationView> organizationViewList = new ArrayList<>();
-        organizationViewList.add(new OrganizationView(1, "Тройка", "581243562945"));
-        organizationViewList.add(new OrganizationView(2, "Землекопы", "581243536942"));
-        organizationViewList.add(new OrganizationView(3, "ПоволжУправ", "581243561234"));
+        organizationViewList.add(new OrganizationView(1, "Тройка", "ООО Тройка", "581243562945", "582341001", "ул. Гоголя, 15",
+                "89324243412", true));
+        organizationViewList.add(new OrganizationView(2, "Землекопы","ООО Землекопы", "581243536942", "582241001", "ул. Победы, 24",
+                "89376543412", true));
         return organizationViewList;
+    }
+
+
+    @Override
+    public OrganizationView organization(Integer id) {
+        if(id == 1){
+             return new OrganizationView(1, "Тройка", "ООО Тройка", "581243562945", "582341001", "ул. Гоголя, 15",
+                    "89324243412", true);
+        }
+        if(id == 2){
+            return new OrganizationView(2, "Землекопы","ООО Землекопы", "581243536942", "582241001", "ул. Победы, 24",
+                    "89376543412", true);
+        } else {
+            return new OrganizationView();
+        }
     }
 }
