@@ -6,9 +6,14 @@ import training.training.view.OrganizationView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<OrganizationView> organizations() {
         List<OrganizationView> organizationViewList = new ArrayList<>();
@@ -19,7 +24,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationViewList;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public OrganizationView organization(Integer id) {
         if(id == 1){

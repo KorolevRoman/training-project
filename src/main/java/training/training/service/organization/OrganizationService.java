@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Сервис
  */
-@Validated
 public interface OrganizationService {
     /**
      * Получить список организаций

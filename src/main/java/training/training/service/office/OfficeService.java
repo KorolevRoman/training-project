@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Сервис
  */
-@Validated
 public interface OfficeService {
     /**
      * Получить список оффисов
@@ -20,6 +19,7 @@ public interface OfficeService {
     /**
      * Получить оффис по id
      *
+     * @param id
      * @return {@Office}
      */
     OfficeView office(Integer id);
