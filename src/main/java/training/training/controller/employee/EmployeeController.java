@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import training.training.service.employee.EmployeeService;
-import training.training.view.EmployeeView;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -21,7 +20,11 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public EmployeeView employee(@PathVariable Integer id){
-        return employeeService.employee(id);
+    public String employee(@PathVariable Integer id){
+        try {
+            return "{\n\t\"data\":{\n\t\t" + employeeService.employee(id).toString() + "\n\t}\n}";
+        } catch (Exception e){
+            return "{\n\t\"error\":{\n\t\t" + e.getMessage() + "\n\t}\n}";
+        }
     }
 }

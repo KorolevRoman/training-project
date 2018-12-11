@@ -14,5 +14,5 @@ public interface EmployeeService {
      * @param id
      * @return {@Employee}
      */
-    EmployeeView employee(Integer id);
+    EmployeeView employee(Integer id) throws Exception;
 }

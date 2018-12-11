@@ -12,9 +12,13 @@ import java.util.List;
  */
 @Service
 public class OfficeServiceImpl implements OfficeService {
+    private List<OfficeView> officeViewList = new ArrayList<>();
+
 
     @Autowired
     public OfficeServiceImpl() {
+        officeViewList.add(new OfficeView(1,"Главный","ул. Свободы, 15","8412454545",true));
+        officeViewList.add(new OfficeView(2,"Обособленный","ул. Гоголя, 25","84124124251",true));
     }
 
     /**
@@ -22,9 +26,6 @@ public class OfficeServiceImpl implements OfficeService {
      */
     @Override
     public List<OfficeView> offices() {
-        List<OfficeView> officeViewList = new ArrayList<>();
-        officeViewList.add(new OfficeView(1,"Главный","ул. Свободы, 15","8412454545",true));
-        officeViewList.add(new OfficeView(2,"Обособленный","ул. Гоголя, 25","84124124251",true));
         return officeViewList;
     }
 
@@ -32,16 +33,17 @@ public class OfficeServiceImpl implements OfficeService {
      * {@inheritDoc}
      */
     @Override
-    public OfficeView office(Integer id) {
-        if (id == 1){
-            return new OfficeView(1,"Главный","ул. Свободы, 15","8412454545",true);
-        };
-        if (id == 2){
-            return new OfficeView(2,"Обособленный","ул. Гоголя, 25","84124124251",true);
+    public OfficeView office(Integer id) throws Exception {
+        OfficeView returnedView = new OfficeView();
+        for (OfficeView view : officeViewList) {
+            if(id == view.id){
+                returnedView = view;
+            }
+        }
+        if(returnedView.id != null) {
+            return returnedView;
         } else {
-            return new OfficeView();
+            throw new Exception("Not found id");
         }
     }
-
-
 }

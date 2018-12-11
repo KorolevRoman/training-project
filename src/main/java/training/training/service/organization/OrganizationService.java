@@ -14,7 +14,7 @@ public interface OrganizationService {
      *
      * @return {@Organization}
      */
-    List<OrganizationView> organizations();
+    List<String> organizations(String name);
 
     /**
      * Получить организацию по id
@@ -22,5 +22,14 @@ public interface OrganizationService {
      * @return {@Organization}
      * @param id
      */
-    OrganizationView organization(Integer id);
+    OrganizationView getOrganization(Integer id) throws Exception;
+
+    /**
+     * Добавить новую организацию
+     *
+     *
+     * @return {@String}
+     * @param view
+     */
+    String addOrganization(OrganizationView view) throws Exception;
 }

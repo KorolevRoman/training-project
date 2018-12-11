@@ -19,7 +19,11 @@ public class OfficeController {
     }
 
     @GetMapping("/{id}")
-    public OfficeView office(@PathVariable Integer id){
-        return officeService.office(id);
+    public String office(@PathVariable Integer id){
+        try {
+            return "{\n\t\"data\":{\n\t\t" + officeService.office(id).toString() + "\n\t}\n}";
+        } catch (Exception e){
+            return "{\n\t\"error\":{\n\t\t" + e.getMessage() + "\n\t}\n}";
+        }
     }
 }

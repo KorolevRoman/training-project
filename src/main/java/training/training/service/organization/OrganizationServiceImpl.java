@@ -1,5 +1,6 @@
 package training.training.service.organization;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import training.training.view.OrganizationView;
 
@@ -11,33 +12,59 @@ import java.util.List;
  */
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<OrganizationView> organizations() {
-        List<OrganizationView> organizationViewList = new ArrayList<>();
+    List<OrganizationView> organizationViewList = new ArrayList<>();
+
+    @Autowired OrganizationServiceImpl() {
         organizationViewList.add(new OrganizationView(1, "Тройка", "ООО Тройка", "581243562945", "582341001", "ул. Гоголя, 15",
                 "89324243412", true));
-        organizationViewList.add(new OrganizationView(2, "Землекопы","ООО Землекопы", "581243536942", "582241001", "ул. Победы, 24",
+        organizationViewList.add(new OrganizationView(2, "Землекопы", "ООО Землекопы", "581243536942", "582241001", "ул. Победы, 24",
                 "89376543412", true));
-        return organizationViewList;
+        organizationViewList.add(new OrganizationView(3, "Тройка", "Тройка-Инвест", "581243562945", "582341001", "ул. Гоголя, 15",
+                "89324242222", true));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public OrganizationView organization(Integer id) {
-        if(id == 1){
-             return new OrganizationView(1, "Тройка", "ООО Тройка", "581243562945", "582341001", "ул. Гоголя, 15",
-                    "89324243412", true);
+    public List<String> organizations(String name) {
+        List<String> returnedList = new ArrayList<>();
+        for (OrganizationView view:organizationViewList) {
+            if(name.equals(view.name)){
+                returnedList.add(view.toString());
+            }
         }
-        if(id == 2){
-            return new OrganizationView(2, "Землекопы","ООО Землекопы", "581243536942", "582241001", "ул. Победы, 24",
-                    "89376543412", true);
+        return returnedList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public OrganizationView getOrganization(Integer id) throws Exception {
+        OrganizationView returnedView = new OrganizationView();
+        for (OrganizationView view:organizationViewList) {
+            if(id == view.id){
+                returnedView = view;
+            }
+        }
+        if(returnedView.id != null) {
+            return returnedView;
         } else {
-            return new OrganizationView();
+            throw new Exception("Not found id");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String addOrganization(OrganizationView view) throws Exception {
+        if(view != null){
+            organizationViewList.add(view);
+            return "result : success";
+        } else {
+            throw new Exception("Not save in DB");
         }
     }
 }

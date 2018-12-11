@@ -1,6 +1,5 @@
 package training.training.service.office;
 
-import org.springframework.validation.annotation.Validated;
 import training.training.view.OfficeView;
 
 import java.util.List;
@@ -22,5 +21,5 @@ public interface OfficeService {
      * @param id
      * @return {@Office}
      */
-    OfficeView office(Integer id);
+    OfficeView office(Integer id) throws Exception;
 }
