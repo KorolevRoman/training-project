@@ -7,9 +7,8 @@ $(document).ready(function () {
             type:"POST",
             data: org,
             contentType:"text/javascript; charset=utf-8",
-            dataType:"text",
             success: function(result ){
-                alert(result);
+                alert(JSON.stringify(result));
             },
         });
 

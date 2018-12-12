@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 
 @ApiModel(description = "Организация")
 public class OrganizationView {
-    @NotEmpty
     public Integer id;
 
     @NotEmpty
@@ -56,4 +55,5 @@ public class OrganizationView {
         return "{id: " + id + "; name: " + name + "; fullName: " + fullName + "; inn: " + inn + "; kpp: " + kpp +
                 "; address: " + address + "; phone: " + phone + "; isActive: " + isActive + "}";
     }
+
 }

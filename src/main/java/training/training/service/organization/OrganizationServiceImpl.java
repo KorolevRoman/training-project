@@ -14,7 +14,8 @@ import java.util.List;
 public class OrganizationServiceImpl implements OrganizationService {
     List<OrganizationView> organizationViewList = new ArrayList<>();
 
-    @Autowired OrganizationServiceImpl() {
+    @Autowired
+    public OrganizationServiceImpl() {
         organizationViewList.add(new OrganizationView(1, "Тройка", "ООО Тройка", "581243562945", "582341001", "ул. Гоголя, 15",
                 "89324243412", true));
         organizationViewList.add(new OrganizationView(2, "Землекопы", "ООО Землекопы", "581243536942", "582241001", "ул. Победы, 24",
@@ -27,11 +28,11 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public List<String> organizations(String name) {
-        List<String> returnedList = new ArrayList<>();
+    public List<OrganizationView> organizations(String name) {
+        List<OrganizationView> returnedList = new ArrayList<>();
         for (OrganizationView view:organizationViewList) {
             if(name.equals(view.name)){
-                returnedList.add(view.toString());
+                returnedList.add(view);
             }
         }
         return returnedList;

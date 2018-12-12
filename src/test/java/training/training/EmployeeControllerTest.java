@@ -5,22 +5,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
-import training.training.service.organization.OrganizationServiceImpl;
-import training.training.view.OrganizationView;
+import training.training.service.employee.EmployeeServiceImpl;
+import training.training.service.office.OfficeServiceImpl;
+import training.training.view.EmployeeView;
+import training.training.view.OfficeView;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TrainingApplication.class)
-public class OrganizationControllerTest {
-    private final String URL = "http://localhost:8888/organization/";
-    private final Integer ID = 2;
+public class EmployeeControllerTest {
+    private final String URL = "http://localhost:8888/employee/";
+    private final Integer ID = 5;
     @Test
-    public void getOrganizationById() {
-        OrganizationView view = new OrganizationView();
+    public void getEmployeeById() {
+        EmployeeView view = new EmployeeView();
         String expectedValue;
         try {
-            view = new OrganizationServiceImpl().getOrganization(ID);
+            view = new EmployeeServiceImpl().getEmployee(ID);
             expectedValue = String.format("{data:%s}", view.toString());
         } catch (Exception e) {
             expectedValue = String.format("{error:%s}", e.getMessage());

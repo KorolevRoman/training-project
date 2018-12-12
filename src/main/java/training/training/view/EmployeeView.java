@@ -66,8 +66,8 @@ public class EmployeeView {
 
     @Override
     public String toString(){
-        return "id: " + id + "; firstName: " + firstName + "; secondName: " + secondName + "; middleName: " + middleName +
+        return "{id: " + id + "; firstName: " + firstName + "; secondName: " + secondName + "; middleName: " + middleName +
                 "; position: " + position + "; docName: " + docName + "; docNumber: " + docNumber + "; docDate: " + docDate +
-                "; citizenshipCode: " + citizenshipCode + "; citizenshipName: " + citizenshipName;
+                "; citizenshipCode: " + citizenshipCode + "; citizenshipName: " + citizenshipName + "}";
     }
 }

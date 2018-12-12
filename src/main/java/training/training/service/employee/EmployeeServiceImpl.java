@@ -27,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * {@inheritDoc}
      */
     @Override
-    public EmployeeView employee(Integer id) throws Exception {
+    public EmployeeView getEmployee(Integer id) throws Exception {
         EmployeeView returnedView = new EmployeeView();
         for (EmployeeView view : employeeViewList) {
             if(id == view.id){

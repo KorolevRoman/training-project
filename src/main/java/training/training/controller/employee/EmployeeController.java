@@ -22,9 +22,9 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public String employee(@PathVariable Integer id){
         try {
-            return "{\n\t\"data\":{\n\t\t" + employeeService.employee(id).toString() + "\n\t}\n}";
+            return "{data:" + employeeService.getEmployee(id).toString() + "}";
         } catch (Exception e){
-            return "{\n\t\"error\":{\n\t\t" + e.getMessage() + "\n\t}\n}";
+            return "{error:" + e.getMessage() + "}";
         }
     }
 }

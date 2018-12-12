@@ -21,5 +21,5 @@ public interface OfficeService {
      * @param id
      * @return {@Office}
      */
-    OfficeView office(Integer id) throws Exception;
+    OfficeView getOffice(Integer id) throws Exception;
 }

@@ -33,7 +33,7 @@ public class OfficeServiceImpl implements OfficeService {
      * {@inheritDoc}
      */
     @Override
-    public OfficeView office(Integer id) throws Exception {
+    public OfficeView getOffice(Integer id) throws Exception {
         OfficeView returnedView = new OfficeView();
         for (OfficeView view : officeViewList) {
             if(id == view.id){

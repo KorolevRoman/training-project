@@ -14,7 +14,7 @@ public interface OrganizationService {
      *
      * @return {@Organization}
      */
-    List<String> organizations(String name);
+    List<OrganizationView> organizations(String name);
 
     /**
      * Получить организацию по id

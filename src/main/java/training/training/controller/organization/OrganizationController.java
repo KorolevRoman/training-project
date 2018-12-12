@@ -18,11 +18,6 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
-    @PostMapping("/list")
-    public @ResponseBody String organizations(@RequestBody String nameOrg){
-        return "{data:" + organizationService.organizations(nameOrg).toString() + "}";
-    }
-
     @PostMapping("/save")
     public String addOrganization(@RequestParam OrganizationView view){
         if(view != null){
@@ -38,9 +33,9 @@ public class OrganizationController {
     @GetMapping("/{id}")
     public String getOrganization(@PathVariable Integer id){
         try {
-            return "{\ndata:" + organizationService.getOrganization(id).toString() + "\n}";
+            return "{data:" + organizationService.getOrganization(id).toString() + "}";
         } catch (Exception e){
-            return "{error:" + e.getMessage() + "}}";
+            return "{error:" + e.getMessage() + "}";
         }
     }
 }
