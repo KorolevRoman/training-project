@@ -18,24 +18,32 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
+    @PostMapping("/list")
+    public OrganizationView getOrganizations (@RequestBody OrganizationView view) throws Exception {
+        try {
+            return organizationService.getOrganizations(view);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     @PostMapping("/save")
-    public String addOrganization(@RequestParam OrganizationView view){
+    public void addOrganization(@RequestBody OrganizationView view){
         if(view != null){
             try {
-                return "{\n\t\"data\":{\n\t\t" + organizationService.addOrganization(view) + "\n\t}\n}";
+                organizationService.addOrganization(view);
             } catch (Exception e){
-                return "{\n\t\"error\":{\n\t\t" + e.getMessage() + "\n\t}\n}";
+                e.getMessage();
             }
         }
-        return null;
     }
 
     @GetMapping("/{id}")
-    public String getOrganization(@PathVariable Integer id){
+    public OrganizationView getOrganization(@PathVariable Integer id) throws Exception{
         try {
-            return "{data:" + organizationService.getOrganization(id).toString() + "}";
+            return organizationService.getOrganization(id);
         } catch (Exception e){
-            return "{error:" + e.getMessage() + "}";
+            throw e;
         }
     }
 }

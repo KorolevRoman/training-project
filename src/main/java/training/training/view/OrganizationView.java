@@ -1,7 +1,9 @@
 package training.training.view;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.swagger.annotations.ApiModel;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -29,7 +31,7 @@ public class OrganizationView {
     @Size(max = 100)
     public String address;
 
-    @NotEmpty
+
     @Size(max = 11)
     public String phone;
 
@@ -39,7 +41,14 @@ public class OrganizationView {
     public OrganizationView() {
     }
 
-    public OrganizationView(@NotEmpty Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 100) String fullName, @NotEmpty @Size(max = 12) String inn, @NotEmpty @Size(max = 9) String kpp, @NotEmpty @Size(max = 100) String address, @NotEmpty @Size(max = 11) String phone, @NotEmpty Boolean isActive) {
+    public OrganizationView(Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 12) String inn, @NotEmpty Boolean isActive) {
+        this.id = id;
+        this.name = name;
+        this.inn = inn;
+        this.isActive = isActive;
+    }
+
+    public OrganizationView(@NotEmpty Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 100) String fullName, @NotEmpty @Size(max = 12) String inn, @NotEmpty @Size(max = 9) String kpp, @NotEmpty @Size(max = 100) String address, @Size(max = 11) String phone, @NotEmpty Boolean isActive) {
         this.id = id;
         this.name = name;
         this.fullName = fullName;

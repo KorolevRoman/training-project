@@ -14,7 +14,7 @@ public interface OrganizationService {
      *
      * @return {@Organization}
      */
-    List<OrganizationView> organizations(String name);
+   OrganizationView getOrganizations(OrganizationView name) throws Exception;
 
     /**
      * Получить организацию по id

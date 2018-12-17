@@ -28,14 +28,18 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public List<OrganizationView> organizations(String name) {
-        List<OrganizationView> returnedList = new ArrayList<>();
-        for (OrganizationView view:organizationViewList) {
-            if(name.equals(view.name)){
-                returnedList.add(view);
+    public OrganizationView getOrganizations(OrganizationView view) throws Exception {
+        OrganizationView returnedView = new OrganizationView();
+        for (OrganizationView orgView:organizationViewList) {
+            if(orgView.name.equals(view.name) && orgView.inn.equals(view.inn) && orgView.isActive == view.isActive){
+                returnedView = orgView;
             }
         }
-        return returnedList;
+        if(returnedView.id != null) {
+            return returnedView;
+        } else {
+            throw new Exception("Not found organization");
+        }
     }
 
     /**
@@ -62,6 +66,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public String addOrganization(OrganizationView view) throws Exception {
         if(view != null){
+            view.id = organizationViewList.size() + 1;
             organizationViewList.add(view);
             return "result : success";
         } else {
