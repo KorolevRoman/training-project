@@ -47,6 +47,7 @@ public class Organization {
     public Organization() {
     }
 
+
     public Set<Office> getOffices() {
         return offices;
     }
@@ -61,4 +62,35 @@ public class Organization {
         office.setOrganization(null);
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getInn() {
+        return inn;
+    }
+
+    public String getKpp() {
+        return kpp;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
 }

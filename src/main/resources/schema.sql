@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS Organization (
   kpp       VARCHAR(9) NOT NULL,
   address   VARCHAR(100) NOT NULL,
   phone     VARCHAR(11),
-  is_active BOOLEAN
+  is_active BOOLEAN NOT NULL
 );
 
 CREATE INDEX UX_Organization_inn ON Organization (inn);

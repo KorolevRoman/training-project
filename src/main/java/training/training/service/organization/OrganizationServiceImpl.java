@@ -2,6 +2,10 @@ package training.training.service.organization;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import training.training.dao.mapper.MapperFacade;
+import training.training.dao.organization.OrganizationDAO;
+import training.training.model.Organization;
 import training.training.view.OrganizationView;
 
 import java.util.ArrayList;
@@ -12,16 +16,13 @@ import java.util.List;
  */
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
-    List<OrganizationView> organizationViewList = new ArrayList<>();
+    private OrganizationDAO dao;
+    private MapperFacade mapper;
 
     @Autowired
-    public OrganizationServiceImpl() {
-        organizationViewList.add(new OrganizationView(1, "Тройка", "ООО Тройка", "581243562945", "582341001", "ул. Гоголя, 15",
-                "89324243412", true));
-        organizationViewList.add(new OrganizationView(2, "Землекопы", "ООО Землекопы", "581243536942", "582241001", "ул. Победы, 24",
-                "89376543412", true));
-        organizationViewList.add(new OrganizationView(3, "Тройка", "Тройка-Инвест", "581243562945", "582341001", "ул. Гоголя, 15",
-                "89324242222", true));
+    public OrganizationServiceImpl(OrganizationDAO dao, MapperFacade mapper) {
+       this.dao = dao;
+       this.mapper = mapper;
     }
 
     /**
@@ -29,12 +30,8 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     public OrganizationView getOrganizations(OrganizationView view) throws Exception {
-        OrganizationView returnedView = new OrganizationView();
-        for (OrganizationView orgView:organizationViewList) {
-            if(orgView.name.equals(view.name) && orgView.inn.equals(view.inn) && orgView.isActive == view.isActive){
-                returnedView = orgView;
-            }
-        }
+        Organization organization = dao.loadByNameAndInn(view.name, view.inn);
+        OrganizationView returnedView = mapper.map(organization, OrganizationView.class);
         if(returnedView.id != null) {
             return returnedView;
         } else {
@@ -47,14 +44,10 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     public OrganizationView getOrganization(Integer id) throws Exception {
-        OrganizationView returnedView = new OrganizationView();
-        for (OrganizationView view:organizationViewList) {
-            if(id == view.id){
-                returnedView = view;
-            }
-        }
-        if(returnedView.id != null) {
-            return returnedView;
+        Organization organization = dao.loadById(id);
+        OrganizationView view = mapper.map(organization, OrganizationView.class);
+        if(view.id != null) {
+            return view;
         } else {
             throw new Exception("Not found id");
         }
@@ -64,10 +57,11 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public String addOrganization(OrganizationView view) throws Exception {
         if(view != null){
-            view.id = organizationViewList.size() + 1;
-            organizationViewList.add(view);
+            Organization organization = mapper.map(view, Organization.class);
+            dao.save(organization);
             return "result : success";
         } else {
             throw new Exception("Not save in DB");
