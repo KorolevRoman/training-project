@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
-@ImportResource("spring_mvc_config.xml")
+//@ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
 public class TrainingApplication {
 

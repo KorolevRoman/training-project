@@ -2,6 +2,7 @@ package training.training.service.organization;
 
 import org.springframework.validation.annotation.Validated;
 import training.training.view.OrganizationView;
+import training.training.view.ResultView;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface OrganizationService {
      *
      * @return {@Organization}
      */
-   OrganizationView getOrganizations(OrganizationView name) throws Exception;
+   OrganizationView getOrganization(OrganizationView name) throws Exception;
 
     /**
      * Получить организацию по id
@@ -22,7 +23,7 @@ public interface OrganizationService {
      * @return {@Organization}
      * @param id
      */
-    OrganizationView getOrganization(Integer id) throws Exception;
+    OrganizationView getOrganizationById(Integer id) throws Exception;
 
     /**
      * Добавить новую организацию
@@ -31,5 +32,14 @@ public interface OrganizationService {
      * @return {@String}
      * @param view
      */
-    String addOrganization(OrganizationView view) throws Exception;
+    ResultView addOrganization(OrganizationView view) throws Exception;
+
+    /**
+     * Изменение данных организации
+     *
+     * @return {@String}
+     * @param view
+     */
+    ResultView updateOrganization(OrganizationView view) throws Exception;
+
 }

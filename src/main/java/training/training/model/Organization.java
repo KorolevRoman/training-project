@@ -11,7 +11,7 @@ import java.util.Set;
 public class Organization {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer id;
 
@@ -90,7 +90,39 @@ public class Organization {
         return phone;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActive() {
         return isActive;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
+
+    public void setKpp(String kpp) {
+        this.kpp = kpp;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setIsActive(Boolean active) {
+        isActive = active;
     }
 }

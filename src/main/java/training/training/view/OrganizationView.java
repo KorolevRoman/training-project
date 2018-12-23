@@ -38,13 +38,6 @@ public class OrganizationView {
     public OrganizationView() {
     }
 
-    public OrganizationView(Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 12) String inn, @NotEmpty Boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.inn = inn;
-        this.isActive = isActive;
-    }
-
     public OrganizationView(@NotEmpty Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 100) String fullName, @NotEmpty @Size(max = 12) String inn, @NotEmpty @Size(max = 9) String kpp, @NotEmpty @Size(max = 100) String address, @Size(max = 11) String phone, @NotEmpty Boolean isActive) {
         this.id = id;
         this.name = name;
@@ -54,6 +47,10 @@ public class OrganizationView {
         this.address = address;
         this.phone = phone;
         this.isActive = isActive;
+    }
+
+    public OrganizationView(Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 12) String inn, @NotEmpty Boolean isActive) {
+        this(id, name, "", inn, "", "", "", isActive);
     }
 
     @Override

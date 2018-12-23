@@ -40,6 +40,30 @@ $(document).ready(function () {
 
         clearFields();
     });
+
+    $("#updateOrganization").click(function () {
+        var org = {
+            id : $("#id2").val(),
+            name : $("#name2").val(),
+            fullName : $("#fullName2").val(),
+            inn : $("#inn2").val(),
+            kpp : $("#kpp2").val(),
+            address : $("#address2").val(),
+            isActive : true,
+        }
+
+        $.ajax({
+            url:"/organization/update",
+            type:"POST",
+            data: JSON.stringify(org),
+            contentType:"application/json; charset=utf-8",
+            success: function(){
+                alert('Success');
+            },
+        });
+
+        clearFields();
+    });
 });
 
 var clearFields = function () {

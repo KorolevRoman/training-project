@@ -7,6 +7,7 @@ import training.training.dao.mapper.MapperFacade;
 import training.training.dao.organization.OrganizationDAO;
 import training.training.model.Organization;
 import training.training.view.OrganizationView;
+import training.training.view.ResultView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public OrganizationView getOrganizations(OrganizationView view) throws Exception {
+    public OrganizationView getOrganization(OrganizationView view) throws Exception {
         Organization organization = dao.loadByNameAndInn(view.name, view.inn);
         OrganizationView returnedView = mapper.map(organization, OrganizationView.class);
         if(returnedView.id != null) {
@@ -43,10 +44,10 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public OrganizationView getOrganization(Integer id) throws Exception {
+    public OrganizationView getOrganizationById(Integer id) throws Exception {
         Organization organization = dao.loadById(id);
         OrganizationView view = mapper.map(organization, OrganizationView.class);
-        if(view.id != null) {
+        if(view != null) {
             return view;
         } else {
             throw new Exception("Not found id");
@@ -58,13 +59,25 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public String addOrganization(OrganizationView view) throws Exception {
+    public ResultView addOrganization(OrganizationView view) throws Exception {
         if(view != null){
             Organization organization = mapper.map(view, Organization.class);
             dao.save(organization);
-            return "result : success";
+            return new ResultView("success");
         } else {
             throw new Exception("Not save in DB");
+        }
+    }
+
+    @Override
+    @Transactional
+    public ResultView updateOrganization(OrganizationView view) throws Exception {
+        if(view != null){
+            Organization organization = mapper.map(view, Organization.class);
+            dao.update(organization);
+            return new ResultView("success");
+        } else {
+            throw new Exception("Not update organization");
         }
     }
 }

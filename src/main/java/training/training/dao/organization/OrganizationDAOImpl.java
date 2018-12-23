@@ -30,7 +30,8 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Override
     public Organization loadByNameAndInn(String name, String inn) {
-        String queryString = String.format("SELECT org FROM Organization org WHERE org.name = :name AND org.inn = :inn AND org.isActive = true", name, inn);
+        String queryString = String.format("SELECT org FROM %s org WHERE org.name = :name AND org.inn = :inn AND org.isActive = true",
+                Organization.class.getSimpleName());
         TypedQuery<Organization> query = em.createQuery(queryString, Organization.class);
         query.setParameter("name", name);
         query.setParameter("inn", inn);
@@ -40,5 +41,10 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     @Override
     public void save(Organization organization) {
         em.persist(organization);
+    }
+
+    @Override
+    public void update(Organization organization) {
+        em.merge(organization);
     }
 }

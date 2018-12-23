@@ -10,9 +10,11 @@ import org.springframework.http.server.ServerHttpResponse;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+import training.training.controller.wrapper.WrapperObj;
 import training.training.view.EmployeeView;
 import training.training.view.OfficeView;
 import training.training.view.OrganizationView;
+import training.training.view.ResultView;
 
 @ControllerAdvice
 public class ResponseBodyController implements ResponseBodyAdvice<Object>{
@@ -23,21 +25,13 @@ public class ResponseBodyController implements ResponseBodyAdvice<Object>{
 
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (o instanceof OrganizationView || o instanceof OfficeView || o instanceof EmployeeView){
+        if (o instanceof OrganizationView || o instanceof OfficeView || o instanceof EmployeeView || o instanceof ResultView){
             return new WrapperObj<>(o);
-        } else {
+        }
+        if (o instanceof Exception){
             return new WrapperError<>(o);
         }
-    }
-
-    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    @JsonSerialize
-    private class WrapperObj<T> {
-        private final Object data;
-
-        public WrapperObj(Object data) {
-            this.data = data;
-        }
+        return  o;
     }
 
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -49,5 +43,4 @@ public class ResponseBodyController implements ResponseBodyAdvice<Object>{
             this.error = error.toString();
         }
     }
-
 }

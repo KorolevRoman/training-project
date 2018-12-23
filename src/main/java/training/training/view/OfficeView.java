@@ -1,15 +1,21 @@
 package training.training.view;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class OfficeView {
-    @NotEmpty
+
     public Integer id;
 
     @NotEmpty
     @Size(max = 45)
     public String name;
+
+    @NotEmpty
+    public Integer orgId;
 
     @NotEmpty
     @Size(max = 100)
@@ -25,9 +31,18 @@ public class OfficeView {
     public OfficeView() {
     }
 
-    public OfficeView(@NotEmpty Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 100) String address, @NotEmpty @Size(max = 11) String phone, @NotEmpty Boolean isActive) {
+    public OfficeView(@NotEmpty @Size(max = 45) String name, @NotEmpty Integer orgId, @NotEmpty @Size(max = 100) String address, @NotEmpty @Size(max = 11) String phone, @NotEmpty Boolean isActive) {
+        this.name = name;
+        this.orgId = orgId;
+        this.address = address;
+        this.phone = phone;
+        this.isActive = isActive;
+    }
+
+    public OfficeView(Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty Integer orgId, @NotEmpty @Size(max = 100) String address, @NotEmpty @Size(max = 11) String phone, @NotEmpty Boolean isActive) {
         this.id = id;
         this.name = name;
+        this.orgId = orgId;
         this.address = address;
         this.phone = phone;
         this.isActive = isActive;
@@ -37,4 +52,6 @@ public class OfficeView {
     public String toString(){
         return "{id: " + id + "; name:" + name + "; address: " + address + "; phone: " + phone + "; is active:" + isActive + "}";
     }
+
+
 }
