@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS Organization (
   id        INTEGER PRIMARY KEY AUTO_INCREMENT,
+  version   INTEGER NOT NULL,
   name      VARCHAR(45) NOT NULL,
   full_name VARCHAR(100) NOT NULL,
   inn       VARCHAR(12) UNIQUE NOT NULL,
@@ -16,6 +17,7 @@ CREATE INDEX IX_Organization_phone ON Organization (phone);
 CREATE INDEX IX_Organization_is_active ON Organization (is_active);
 
 COMMENT ON TABLE Organization IS 'Таблица хранит информацию об организациях';
+COMMENT ON COLUMN Organization.version IS 'Служебное поле Hibernate';
 COMMENT ON COLUMN Organization.address IS 'В колонке хранится юридический адрес организации';
 COMMENT ON COLUMN Organization.is_active IS 'Если true, то организация действующая, если false, то закрыта';
 

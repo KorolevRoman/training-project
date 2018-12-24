@@ -1,5 +1,5 @@
-INSERT INTO Organization (id, name, full_name, inn, kpp, address, is_active) VALUES (1, 'Тройка', 'ООО Тройка', '581214233562', '580336041', 'ул. Ленина, 12', true);
-INSERT INTO Organization (id, name, full_name, inn, kpp, address, is_active) VALUES (2, 'АТП', 'Автотранспортное предприятие', '581214234562', '580332051', 'ул. Москвовская, 22', true);
+INSERT INTO Organization (id, version, name, full_name, inn, kpp, address, is_active) VALUES (1, 0, 'Тройка', 'ООО Тройка', '581214233562', '580336041', 'ул. Ленина, 12', true);
+INSERT INTO Organization (id, version, name, full_name, inn, kpp, address, is_active) VALUES (2, 0, 'АТП', 'Автотранспортное предприятие', '581214234562', '580332051', 'ул. Москвовская, 22', true);
 
 INSERT INTO Office (id, organization_id, name, address, phone, is_active) VALUES (1, 1, 'Центральный', 'ул. Ленина, 12', '78412550012', true);
 INSERT INTO Office (id, organization_id, name, address, phone, is_active) VALUES (2, 1, 'Обособленный', 'ул. Пушкина, 45', '78412550014', true);

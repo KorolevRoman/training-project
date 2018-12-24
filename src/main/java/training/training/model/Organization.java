@@ -15,6 +15,9 @@ public class Organization {
     @Column
     private Integer id;
 
+    @Version
+    private Integer version;
+
     @Column(length = 45, nullable = false)
     private String name;
 
