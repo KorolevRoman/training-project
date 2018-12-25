@@ -9,13 +9,6 @@ import java.util.List;
  */
 public interface OrganizationDAO {
     /**
-     * Получить все объекты Organization
-     *
-     * @return
-     */
-    List<Organization> all();
-
-    /**
      * Получить Organization по идентификатору
      *
      * @param id
@@ -23,7 +16,15 @@ public interface OrganizationDAO {
      */
     Organization loadById(Integer id);
 
-    Organization loadByNameAndInn(String name, String inn);
+    /**
+     * Получить Organization соответствующую фильтру
+     *
+     * @param name
+     * @param inn
+     * @param isActive
+     * @return @Organization
+     */
+    Organization loadByNameAndInn(String name, String inn, Boolean isActive);
 
     /**
      * Сохранить Organization

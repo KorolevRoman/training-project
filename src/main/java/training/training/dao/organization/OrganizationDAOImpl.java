@@ -18,23 +18,18 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     }
 
     @Override
-    public List<Organization> all() {
-        TypedQuery<Organization> query = em.createQuery("SELECT org FROM Organization org", Organization.class);
-        return query.getResultList();
-    }
-
-    @Override
     public Organization loadById(Integer id) {
         return em.find(Organization.class, id);
     }
 
     @Override
-    public Organization loadByNameAndInn(String name, String inn) {
-        String queryString = String.format("SELECT org FROM %s org WHERE org.name = :name AND org.inn = :inn AND org.isActive = true",
+    public Organization loadByNameAndInn(String name, String inn, Boolean isActive) {
+        String queryString = String.format("SELECT org FROM %s org WHERE org.name = :name AND org.inn = :inn AND org.isActive = :isActive",
                 Organization.class.getSimpleName());
         TypedQuery<Organization> query = em.createQuery(queryString, Organization.class);
         query.setParameter("name", name);
         query.setParameter("inn", inn);
+        query.setParameter("isActive", isActive);
         return query.getSingleResult();
     }
 
@@ -45,6 +40,6 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Override
     public void update(Organization organization) {
-        em.merge(organization);
+        em.flush();
     }
 }

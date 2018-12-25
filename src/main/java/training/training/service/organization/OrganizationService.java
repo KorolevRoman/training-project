@@ -4,11 +4,13 @@ import org.springframework.validation.annotation.Validated;
 import training.training.view.OrganizationView;
 import training.training.view.ResultView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Сервис
  */
+@Validated
 public interface OrganizationService {
     /**
      * Получить список организаций
@@ -32,7 +34,7 @@ public interface OrganizationService {
      * @return {@String}
      * @param view
      */
-    ResultView addOrganization(OrganizationView view) throws Exception;
+    ResultView addOrganization(@Valid OrganizationView view) throws Exception;
 
     /**
      * Изменение данных организации
@@ -40,6 +42,6 @@ public interface OrganizationService {
      * @return {@String}
      * @param view
      */
-    ResultView updateOrganization(OrganizationView view) throws Exception;
+    ResultView updateOrganization(@Valid OrganizationView view) throws Exception;
 
 }

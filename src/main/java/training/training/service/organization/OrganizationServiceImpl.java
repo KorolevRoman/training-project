@@ -9,9 +9,6 @@ import training.training.model.Organization;
 import training.training.view.OrganizationView;
 import training.training.view.ResultView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * {@inheritDoc}
  */
@@ -31,7 +28,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     public OrganizationView getOrganization(OrganizationView view) throws Exception {
-        Organization organization = dao.loadByNameAndInn(view.name, view.inn);
+        Organization organization = dao.loadByNameAndInn(view.name, view.inn, view.isActive);
         OrganizationView returnedView = mapper.map(organization, OrganizationView.class);
         if(returnedView.id != null) {
             return returnedView;
@@ -59,25 +56,27 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public ResultView addOrganization(OrganizationView view) throws Exception {
+    public ResultView addOrganization(OrganizationView view) {
         if(view != null){
             Organization organization = mapper.map(view, Organization.class);
+            organization.setIsActive(true);
             dao.save(organization);
             return new ResultView("success");
         } else {
-            throw new Exception("Not save in DB");
+            throw new IllegalArgumentException("empty organization");
         }
     }
 
     @Override
     @Transactional
-    public ResultView updateOrganization(OrganizationView view) throws Exception {
-        if(view != null){
+    public ResultView updateOrganization(OrganizationView view) {
+        if(view != null) {
             Organization organization = mapper.map(view, Organization.class);
+            organization.setVersion(0);
             dao.update(organization);
             return new ResultView("success");
         } else {
-            throw new Exception("Not update organization");
+            throw new IllegalArgumentException("empty organization");
         }
     }
 }

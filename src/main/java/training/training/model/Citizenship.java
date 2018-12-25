@@ -20,4 +20,12 @@ public class Citizenship {
             mappedBy = "citizenship"
     )
     private Set<Employee> employees;
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

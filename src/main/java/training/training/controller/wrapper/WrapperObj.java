@@ -25,6 +25,6 @@ public class WrapperObj<T> {
 
     @Override
     public String toString(){
-        return "{data:" + data + "}";
+        return "{data:" + data.toString() + "}";
     }
 }

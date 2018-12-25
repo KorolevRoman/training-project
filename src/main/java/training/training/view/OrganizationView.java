@@ -1,7 +1,10 @@
 package training.training.view;
 
 import io.swagger.annotations.ApiModel;
+import org.codehaus.commons.nullanalysis.NotNullByDefault;
+
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @ApiModel(description = "Организация")
@@ -16,7 +19,7 @@ public class OrganizationView {
     @Size(max = 100)
     public String fullName;
 
-    @NotEmpty
+    @NotEmpty(message = "the organization must have a INN")
     @Size(max = 12)
     public String inn;
 
@@ -28,29 +31,27 @@ public class OrganizationView {
     @Size(max = 100)
     public String address;
 
-
     @Size(max = 11)
     public String phone;
 
-    @NotEmpty
+    @NotNull(message = "active cannot be null")
     public Boolean isActive;
 
     public OrganizationView() {
     }
 
-    public OrganizationView(@NotEmpty Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 100) String fullName, @NotEmpty @Size(max = 12) String inn, @NotEmpty @Size(max = 9) String kpp, @NotEmpty @Size(max = 100) String address, @Size(max = 11) String phone, @NotEmpty Boolean isActive) {
-        this.id = id;
+    public OrganizationView(@NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 100) String fullName, @NotEmpty(message = "the organization must have a INN") @Size(max = 12) String inn, @NotEmpty @Size(max = 9) String kpp, @NotEmpty @Size(max = 100) String address, @NotNull(message = "active cannot be null") Boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
         this.kpp = kpp;
         this.address = address;
-        this.phone = phone;
         this.isActive = isActive;
     }
 
-    public OrganizationView(Integer id, @NotEmpty @Size(max = 45) String name, @NotEmpty @Size(max = 12) String inn, @NotEmpty Boolean isActive) {
-        this(id, name, "", inn, "", "", "", isActive);
+    public OrganizationView(@NotEmpty @Size(max = 45) String name, @NotEmpty(message = "the organization must have a INN") @Size(max = 12) String inn) {
+        this.name = name;
+        this.inn = inn;
     }
 
     @Override
@@ -58,5 +59,6 @@ public class OrganizationView {
         return "{id: " + id + "; name: " + name + "; fullName: " + fullName + "; inn: " + inn + "; kpp: " + kpp +
                 "; address: " + address + "; phone: " + phone + "; isActive: " + isActive + "}";
     }
+
 
 }
