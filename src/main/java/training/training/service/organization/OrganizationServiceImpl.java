@@ -68,7 +68,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    @Transactional
+    @Transactional()
     public ResultView updateOrganization(OrganizationView view) {
         if(view != null) {
             Organization organization = mapper.map(view, Organization.class);

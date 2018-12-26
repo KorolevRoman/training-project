@@ -8,10 +8,9 @@ import training.training.service.organization.OrganizationService;
 import training.training.view.OrganizationView;
 import training.training.view.ResultView;
 
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Api(value = "OrganizationController", description = "Управление инфорамцией об организациях")
+@Api(value = "OrganizationController", description = "Управление информацией об организациях")
 @RestController
 @RequestMapping(value = "/organization", produces = APPLICATION_JSON_VALUE)
 public class OrganizationController {
@@ -22,42 +21,45 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
-    @ApiOperation(value = "Получить организацию по заданному фильтру", httpMethod = "POST")
-    @PostMapping("/list")
-    public OrganizationView getOrganization(@RequestBody OrganizationView view) throws Exception {
-        try {
-            return organizationService.getOrganization(view);
-        } catch (Exception e) {
-            throw e;
+    @ApiOperation(value = "Получить организацию по id", httpMethod = "GET")
+    @GetMapping("/{id}")
+    public OrganizationView getOrganizationById(@PathVariable Integer id) throws Exception{
+        if( id != null) {
+            return organizationService.getOrganizationById(id);
+        } else {
+            throw new IllegalArgumentException("Missed id");
         }
     }
 
+    @ApiOperation(value = "Добавить новую организацию", httpMethod = "POST")
     @PostMapping("/save")
     public ResultView addOrganization(@RequestBody OrganizationView view) throws Exception {
-        try {
+        if(view != null){
             return organizationService.addOrganization(view);
-        } catch (Exception e){
-            throw  e;
+        } else {
+            throw new IllegalArgumentException("Missed request body");
         }
+
     }
 
     @ApiOperation(value = "Обновить информацию об организации", httpMethod = "POST")
     @PostMapping("/update")
     public ResultView updateOrganization(@RequestBody OrganizationView view) throws Exception {
-        try {
+        if((view !=null) && (view.id !=null)){
             return organizationService.updateOrganization(view);
-        } catch (Exception e) {
-            throw e;
+        } else {
+            throw new IllegalArgumentException("Missed organization or id of organization");
         }
     }
 
-    @ApiOperation(value = "Получить орагнизацию по id", httpMethod = "GET")
-    @GetMapping("/{id}")
-    public OrganizationView getOrganizationById(@PathVariable Integer id) throws Exception{
-        try {
-            return organizationService.getOrganizationById(id);
-        } catch (Exception e){
-            throw e;
+    @ApiOperation(value = "Получить организацию по заданному фильтру", httpMethod = "POST")
+    @PostMapping("/list")
+    public OrganizationView getOrganization(@RequestBody OrganizationView view) throws Exception {
+        if((view.name != null) && (view.inn != null) && (view.isActive != null)){
+            return organizationService.getOrganization(view);
+        } else {
+            throw new IllegalArgumentException("Missed one or all parameter of find");
         }
+
     }
 }

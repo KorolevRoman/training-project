@@ -33,4 +33,12 @@ public class TypeOfDocument {
         getDocuments().remove(document);
         document.setTypeOfDocument(null);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
 }

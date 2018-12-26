@@ -1,14 +1,17 @@
 package training.training.service.office;
 
+import org.springframework.validation.annotation.Validated;
 import training.training.model.Office;
 import training.training.view.OfficeView;
 import training.training.view.ResultView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Сервис
  */
+@Validated
 public interface OfficeService {
     /**
      * Получить офис по id
@@ -20,10 +23,12 @@ public interface OfficeService {
 
     /**
      *  Получить список офисов организации
+     *
+     * @param view
      * @param orgId
      * @return {@List<Office>}
      */
-    List<OfficeView> getOfficeByOrg(Integer orgId) throws Exception;
+    List<OfficeView> getOfficeByOrg(OfficeView view, Integer orgId) throws Exception;
 
     /**
      * Добавить новый офис
@@ -33,7 +38,7 @@ public interface OfficeService {
      * @param view
      */
 
-    ResultView addOffice(OfficeView view) throws Exception;
+    ResultView addOffice(@Valid OfficeView view) throws Exception;
 
     /**
      * Изменение данных офиса
@@ -41,5 +46,5 @@ public interface OfficeService {
      * @return {@SResultView}
      * @param view
      */
-    ResultView updateOffice(OfficeView view) throws Exception;
+    ResultView updateOffice(@Valid OfficeView view) throws Exception;
 }

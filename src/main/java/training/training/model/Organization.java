@@ -9,7 +9,7 @@ import java.util.Set;
 */
 
 @Entity(name = "Organization")
-public class Organization implements Serializable {
+public class Organization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

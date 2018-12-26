@@ -13,7 +13,7 @@ public interface OfficeDAO {
      *
      * @return
      */
-    List<Office> loadByOrgId(Integer orgId);
+    List<Office> loadByOrgId(Office office);
 
     /**
      * Получить office по идентификатору

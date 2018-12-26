@@ -16,6 +16,8 @@ import training.training.view.OfficeView;
 import training.training.view.OrganizationView;
 import training.training.view.ResultView;
 
+import java.util.List;
+
 @ControllerAdvice
 public class ResponseBodyController implements ResponseBodyAdvice<Object>{
     @Override
@@ -25,7 +27,8 @@ public class ResponseBodyController implements ResponseBodyAdvice<Object>{
 
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (o instanceof OrganizationView || o instanceof OfficeView || o instanceof EmployeeView || o instanceof ResultView){
+        if (o instanceof OrganizationView || o instanceof OfficeView || o instanceof EmployeeView || o instanceof ResultView
+            || o instanceof List){
             return new WrapperObj<>(o);
         }
         if (o instanceof Exception){

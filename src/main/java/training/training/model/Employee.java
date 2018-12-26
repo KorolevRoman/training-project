@@ -1,6 +1,7 @@
 package training.training.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "Employee")
@@ -10,6 +11,9 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer id;
+
+    @Version
+    private Integer version;
 
     @Column(name = "first_name")
     private String firstName;
@@ -37,6 +41,17 @@ public class Employee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
     private Office office;
+
+    public Employee() {
+    }
+
+    public Employee(String firstName, String secondName, String middleName, String position) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.middleName = middleName;
+        this.position = position;
+        this.documents = new HashSet<>();
+    }
 
     public void setOffice(Office office) {
         this.office = office;
@@ -96,6 +111,14 @@ public class Employee {
 
     public Office getOffice() {
         return office;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public void addDocument(Document document){

@@ -25,11 +25,42 @@ public class Document {
     @Column
     private String number;
 
+    public Document() {
+    }
+
+    public Document( String number) {
+        this.number = number;
+    }
+
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
     public void setTypeOfDocument(TypeOfDocument typeOfDocument) {
         this.typeOfDocument = typeOfDocument;
+    }
+
+    public TypeOfDocument getTypeOfDocument() {
+        return typeOfDocument;
+    }
+
+    public Date getDateIssue() {
+        return dateIssue;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setDateIssue(Date dateIssue) {
+        this.dateIssue = dateIssue;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

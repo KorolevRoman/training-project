@@ -1,13 +1,16 @@
 package training.training.service.employee;
 
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import training.training.view.EmployeeView;
 import training.training.view.ResultView;
+
+import javax.validation.Valid;
 
 /**
  * Сервис
  */
-@Service
+@Validated
 public interface EmployeeService {
     /**
      * Получить сотрудника по id
@@ -23,7 +26,7 @@ public interface EmployeeService {
      * @param view
      * @return {@Employee}
      */
-    EmployeeView getEmployeeById(EmployeeView view) throws Exception;
+    EmployeeView getEmployeeByFilter(EmployeeView view) throws Exception;
 
     /**
      * Добавить нового сотрудника
@@ -31,7 +34,7 @@ public interface EmployeeService {
      * @param view
      * @return {@ResultView}
      */
-    ResultView addEmployee(EmployeeView view) throws Exception;
+    ResultView addEmployee(@Valid EmployeeView view) throws Exception;
 
     /**
      * Изменить данные сотрудника

@@ -5,13 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import training.training.dao.mapper.MapperFacade;
 import training.training.dao.office.OfficeDAO;
-import training.training.dao.office.OfficeDAOImpl;
 import training.training.dao.organization.OrganizationDAO;
 import training.training.model.Office;
+import training.training.model.Organization;
 import training.training.view.OfficeView;
 import training.training.view.ResultView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,16 +36,19 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public OfficeView getOfficeById(Integer id) throws Exception {
         OfficeView view = mapper.map(dao.loadById(id), OfficeView.class);
-        if(view !=null) {
+        if(view != null) {
             return view;
         } else {
-            throw new Exception("Not found id");
+            throw new Exception("Not found office by id");
         }
     }
 
     @Override
-    public List<OfficeView> getOfficeByOrg(Integer orgId) throws Exception {
-        List<OfficeView> offices = mapper.mapAsList(dao.loadByOrgId(orgId), OfficeView.class);
+    public List<OfficeView> getOfficeByOrg(OfficeView view, Integer orgId) throws Exception {
+        Office office = mapper.map(view, Office.class);
+        Organization organization = orgDAO.loadById(orgId);
+        office.setOrganization(organization);
+        List<OfficeView> offices = mapper.mapAsList(dao.loadByOrgId(office), OfficeView.class);
         if((offices != null) && (!offices.isEmpty())){
             return offices;
         } else {
@@ -73,6 +75,7 @@ public class OfficeServiceImpl implements OfficeService {
         if(view !=null) {
             Office office = mapper.map(view, Office.class);
             office.setOrganization(dao.loadById(view.id).getOrganization());
+            office.setVersion(0);
             dao.update(office);
             return new ResultView("success");
         } else {

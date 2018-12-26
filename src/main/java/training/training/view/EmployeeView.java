@@ -1,11 +1,12 @@
 package training.training.view;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.util.Set;
 
 public class EmployeeView {
-    @NotEmpty
+
     public Integer id;
 
     @NotEmpty
@@ -16,58 +17,63 @@ public class EmployeeView {
     @Size(max = 45)
     public String secondName;
 
-    @NotEmpty
     @Size(max = 45)
     public String middleName;
+
+    @NotNull
+    public Integer officeId;
 
     @NotEmpty
     @Size(max = 45)
     public String position;
 
-    @NotEmpty
-    @Size(max = 11)
-    public String phone;
+    public Set<DocumentView> documents;
 
-    @NotEmpty
-    @Size(max = 45)
-    public String docName;
-
-    @NotEmpty
-    @Size(max = 45)
-    public String docNumber;
-
-    @NotEmpty
-    public Date docDate;
-
-    @NotEmpty
-    @Size(max = 3)
     public Integer citizenshipCode;
 
-    @NotEmpty
     @Size(max = 45)
     public String citizenshipName;
 
     public EmployeeView() {
     }
 
-    public EmployeeView(@NotEmpty Integer id, @NotEmpty @Size(max = 45) String firstName, @NotEmpty @Size(max = 45) String secondName, @NotEmpty @Size(max = 45) String middleName, @NotEmpty @Size(max = 45) String position, @NotEmpty @Size(max = 11) String phone, @NotEmpty @Size(max = 45) String docName, @NotEmpty @Size(max = 45) String docNumber, @NotEmpty Date docDate, @NotEmpty @Size(max = 3) Integer citizenshipCode, @NotEmpty @Size(max = 45) String citizenshipName) {
+    public EmployeeView(Integer id, @NotEmpty @Size(max = 45) String firstName, @NotEmpty @Size(max = 45) String secondName, @Size(max = 45) String middleName, @NotEmpty @Size(max = 45) String position, Set<DocumentView> documents, Integer citizenshipCode, @Size(max = 45) String citizenshipName) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.position = position;
-        this.phone = phone;
-        this.docName = docName;
-        this.docNumber = docNumber;
-        this.docDate = docDate;
+        this.documents = documents;
+        this.citizenshipCode = citizenshipCode;
+        this.citizenshipName = citizenshipName;
+    }
+
+    public EmployeeView(Integer id, @NotEmpty @Size(max = 45) String firstName, @NotEmpty @Size(max = 45) String secondName, @Size(max = 45) String middleName, @NotNull Integer officeId, @NotEmpty @Size(max = 45) String position, Set<DocumentView> documents, Integer citizenshipCode, @Size(max = 45) String citizenshipName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.middleName = middleName;
+        this.officeId = officeId;
+        this.position = position;
+        this.documents = documents;
+        this.citizenshipCode = citizenshipCode;
+        this.citizenshipName = citizenshipName;
+    }
+
+    public EmployeeView(@NotEmpty @Size(max = 45) String firstName, @NotEmpty @Size(max = 45) String secondName, @Size(max = 45) String middleName, @NotNull Integer officeId, @NotEmpty @Size(max = 45) String position, Set<DocumentView> documents, Integer citizenshipCode, @Size(max = 45) String citizenshipName) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.middleName = middleName;
+        this.officeId = officeId;
+        this.position = position;
+        this.documents = documents;
         this.citizenshipCode = citizenshipCode;
         this.citizenshipName = citizenshipName;
     }
 
     @Override
     public String toString(){
-        return "{id: " + id + "; firstName: " + firstName + "; secondName: " + secondName + "; middleName: " + middleName +
-                "; position: " + position + "; docName: " + docName + "; docNumber: " + docNumber + "; docDate: " + docDate +
-                "; citizenshipCode: " + citizenshipCode + "; citizenshipName: " + citizenshipName + "}";
+       return  "{id: " + id + "; firstName: " + firstName + "; secondName: " + secondName + "; middleName: " + middleName +
+                    "; position: " + position + "; citizenshipCode: " + citizenshipCode + "; citizenshipName: " + citizenshipName + "}";
     }
 }

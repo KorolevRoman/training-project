@@ -5,10 +5,12 @@ import org.springframework.stereotype.Repository;
 import training.training.model.Employee;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
+    @PersistenceContext
     private EntityManager em;
 
     @Autowired

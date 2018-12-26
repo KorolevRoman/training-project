@@ -25,6 +25,7 @@ COMMENT ON COLUMN Organization.is_active IS 'Если true, то организ�
 
 CREATE TABLE IF NOT EXISTS Office(
   id              INTEGER PRIMARY KEY AUTO_INCREMENT,
+  version         INTEGER NOT NULL,
   organization_id INTEGER NOT NULL,
   name            VARCHAR(45) NOT NULL,
   address         VARCHAR(100) NOT NULL,
@@ -38,6 +39,7 @@ CREATE INDEX IX_Office_phone ON Office(phone);
 CREATE INDEX IX_Office_is_active ON Office (is_active);
 
 COMMENT ON TABLE Office IS 'Таблица хранит информацию об офисах организациии';
+COMMENT ON COLUMN Office.version IS 'Служебное поле Hibernate';
 COMMENT ON COLUMN Office.organization_id IS 'в колонке хранится id организации, которой принадлежит офис';
 COMMENT ON COLUMN Office.address IS 'В колонке хранится фактический адрес офиса';
 COMMENT ON COLUMN Office.is_active IS 'Если true, то офис действующий, если false, то недействующий';
@@ -64,6 +66,7 @@ COMMENT ON TABLE Document_type IS 'Таблица хранит информац�
 
 CREATE TABLE IF NOT EXISTS Employee (
 id              INTEGER PRIMARY KEY AUTO_INCREMENT,
+version         INTEGER NOT NULL,
 first_name      VARCHAR(45) NOT NULL,
 second_name     VARCHAR(45) NOT NULL,
 middle_name     VARCHAR(45),
@@ -73,6 +76,7 @@ office_id       INTEGER NOT NULL
 );
 
 COMMENT ON TABLE Employee IS 'Таблица хранит информацию о сотрудниках организации';
+COMMENT ON COLUMN Employee.version IS 'Служебное поле Hibernate';
 COMMENT ON COLUMN Employee.first_name IS 'Фамилия';
 COMMENT ON COLUMN Employee.second_name IS 'Имя';
 COMMENT ON COLUMN Employee.middle_name IS 'Отчество';

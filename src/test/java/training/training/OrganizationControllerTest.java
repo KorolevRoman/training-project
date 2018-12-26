@@ -1,6 +1,5 @@
 package training.training;
 
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import training.training.controller.wrapper.WrapperObj;
 import training.training.dao.mapper.MapperFacade;
 import training.training.view.OrganizationView;
-import training.training.view.ResultView;
 
 import static java.lang.Boolean.TRUE;
 
@@ -60,7 +58,8 @@ public class OrganizationControllerTest {
         WrapperObj<OrganizationView> resultById = rest.getForObject(URL+ ID, WrapperObj.class);
         OrganizationView expectedView = mapper.map(resultById.getData(), OrganizationView.class);
         expectedView.name = expectedView.name + UPDATE;
-        WrapperObj<OrganizationView> result = rest.postForObject(URL+ UPDATE, expectedView, WrapperObj.class);
+        rest.postForObject(URL+ UPDATE, expectedView, WrapperObj.class);
+        WrapperObj<OrganizationView> result = rest.getForObject(URL+ ID, WrapperObj.class);
         OrganizationView actualView = mapper.map(result.getData(), OrganizationView.class);
         Assert.assertNotNull(actualView);
         Assert.assertEquals(expectedView.name, actualView.name);

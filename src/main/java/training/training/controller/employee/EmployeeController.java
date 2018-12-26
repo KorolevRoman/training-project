@@ -19,22 +19,30 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public ResultView addEmployee(@RequestBody EmployeeView view){
-        return null;
+    public ResultView addEmployee(@RequestBody EmployeeView view) throws Exception {
+        if (view != null) {
+            return employeeService.addEmployee(view);
+        } else {
+            throw new IllegalArgumentException("Missed request body");
+        }
     }
 
     @PostMapping("/update")
-    public ResultView updateEmployee(@RequestBody EmployeeView view){
-        return null;
+    public ResultView updateEmployee(@RequestBody EmployeeView view) throws Exception {
+        return employeeService.updateEmployee(view);
     }
 
     @PostMapping("/list")
-    public EmployeeView getEmployeeByFilter(@RequestBody EmployeeView view){
-        return null;
+    public EmployeeView getEmployeeByFilter(@RequestBody EmployeeView view) throws Exception {
+        return employeeService.getEmployeeByFilter(view);
     }
 
     @GetMapping("/{id}")
-    public EmployeeView getEmployeeById(@PathVariable Integer id){
-        return null;
+    public EmployeeView getEmployeeById(@PathVariable Integer id) throws Exception {
+        if (id != null) {
+            return employeeService.getEmployeeById(id);
+        } else {
+            throw new IllegalArgumentException("Missed id");
+        }
     }
 }

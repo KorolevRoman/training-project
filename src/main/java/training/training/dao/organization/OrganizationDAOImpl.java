@@ -5,11 +5,13 @@ import org.springframework.stereotype.Repository;
 import training.training.model.Organization;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
 public class OrganizationDAOImpl implements OrganizationDAO {
+    @PersistenceContext
     private EntityManager em;
 
     @Autowired
@@ -40,6 +42,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Override
     public void update(Organization organization) {
-        em.flush();
+        em.merge(organization);
+        em.close();
     }
 }

@@ -11,6 +11,9 @@ public class Office {
     @Column
     private Integer id;
 
+    @Version
+    private Integer version;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")
     private Organization organization;
@@ -88,6 +91,14 @@ public class Office {
 
     public Set<Employee> getEmployees() {
         return employees;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public void addEmployee(Employee employee){

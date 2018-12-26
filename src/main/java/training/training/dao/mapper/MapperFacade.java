@@ -1,13 +1,19 @@
 package training.training.dao.mapper;
 
+import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import training.training.model.Employee;
 import training.training.model.Office;
+import training.training.view.EmployeeView;
 import training.training.view.OfficeView;
 
 import java.util.List;
+
+import static java.lang.Boolean.FALSE;
 
 @Service
 public class MapperFacade {
@@ -15,7 +21,7 @@ public class MapperFacade {
 
     @Autowired
     public MapperFacade() {
-        this.mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory = new DefaultMapperFactory.Builder().mapNulls(FALSE).build();
     }
 
     public <S, D> D map(S s, Class<D> aClass) {
