@@ -94,20 +94,30 @@ CREATE INDEX IX_Employee_second_name ON Employee (second_name);
 
 CREATE TABLE IF NOT EXISTS Document (
   id           INTEGER PRIMARY KEY AUTO_INCREMENT,
-  employee_id  INTEGER NOT NULL,
+  --employee_id  INTEGER NOT NULL,
   code         INTEGER NOT NULL,
   date_issue   DATE NOT NULL,
-  number       VARCHAR(20) UNIQUE NOT NULL,
+  number       VARCHAR(20) UNIQUE NOT NULL
 );
 
 ALTER TABLE Document ADD FOREIGN KEY (code) REFERENCES Document_type(code);
-ALTER TABLE Document ADD FOREIGN KEY (employee_id) REFERENCES Employee (id);
+--ALTER TABLE Document ADD FOREIGN KEY (employee_id) REFERENCES Employee (id);
 
 COMMENT ON TABLE Document IS 'Таблица хранит информацию о документе, удостоверяющем личность сотрудника';
-COMMENT ON COLUMN Document.employee_id IS 'сотрудник, которому принадлежит документ';
+--COMMENT ON COLUMN Document.employee_id IS 'сотрудник, которому принадлежит документ';
 COMMENT ON COLUMN Document.date_issue IS 'дата выдачи документа, удостоверяющего личность';
 COMMENT ON COLUMN Document.number IS 'серия и номер документа, удостоверяющего личность';
 
 CREATE INDEX UX_Document_number ON Document (number);
 
 ----------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Employee_Document (
+  employee_id INTEGER NOT NULL,
+  document_id INTEGER UNIQUE NOT NULL,
+
+  PRIMARY KEY (employee_id, document_id)
+);
+
+ALTER TABLE Employee_Document ADD FOREIGN KEY (employee_id) REFERENCES Employee(id);
+ALTER TABLE Employee_Document ADD FOREIGN KEY (document_id) REFERENCES Document(id);

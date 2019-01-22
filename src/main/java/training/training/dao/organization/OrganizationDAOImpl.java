@@ -43,6 +43,6 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     @Override
     public void update(Organization organization) {
         em.merge(organization);
-        em.close();
+        em.flush();
     }
 }

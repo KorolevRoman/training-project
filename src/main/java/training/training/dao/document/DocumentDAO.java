@@ -20,4 +20,11 @@ public interface DocumentDAO {
      * @param document
      */
     void save(Document document);
+
+    /**
+     * Обновить документ в БД
+     *
+     * @param document
+     */
+    void update(Document document);
 }

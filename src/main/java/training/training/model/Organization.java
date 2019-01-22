@@ -1,7 +1,8 @@
 package training.training.model;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -9,6 +10,7 @@ import java.util.Set;
 */
 
 @Entity(name = "Organization")
+@DynamicUpdate()
 public class Organization {
 
     @Id

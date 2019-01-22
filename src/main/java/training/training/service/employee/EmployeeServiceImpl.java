@@ -17,9 +17,7 @@ import training.training.view.EmployeeView;
 import training.training.view.ResultView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * {@inheritDoc}
@@ -52,20 +50,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeView getEmployeeById(Integer id) throws Exception {
         Employee employee = dao.loadById(id);
-        Set documentViews = new HashSet<DocumentView>();
         if (employee != null) {
-            for (Document document : employee.getDocuments()) {
-                DocumentView documentView = mapper.map(document, DocumentView.class);
-                documentView.dateIssue = sdf.format(document.getDateIssue());
-                documentView.codeOfDocument = document.getTypeOfDocument().getCode();
-                documentView.typeOfDocument = document.getTypeOfDocument().getName();
-                documentViews.add(documentView);
-            }
-            EmployeeView view = mapper.map(employee, EmployeeView.class);
-            view.citizenshipCode = employee.getCitizenship().getCode();
-            view.citizenshipName = employee.getCitizenship().getName();
-            view.documents = documentViews;
-            return view;
+            return mapToEmployeeView(employee);
         } else {
             throw new Exception("Not found id");
         }
@@ -75,9 +61,18 @@ public class EmployeeServiceImpl implements EmployeeService {
      * {@inheritDoc}
      */
     @Override
-    public EmployeeView getEmployeeByFilter(EmployeeView view) throws Exception {
-        Employee employee = mapper.map(view, Employee.class);
-        return mapper.map(dao.loadByFilter(employee), EmployeeView.class);
+    public List<EmployeeView> getEmployeeByFilter(EmployeeView view) throws Exception {
+        Employee employee = new Employee(view.firstName, view.secondName, view.middleName, view.position);
+        employee.setOffice(officeDAO.loadById(view.officeId));
+        employee.setCitizenship(citizenshipDAO.loadByCode(view.citizenshipCode));
+        List<Employee> employees = dao.loadByFilter(employee);
+        List<EmployeeView> employeeViews = new ArrayList<>();
+        if (!employees.isEmpty()){
+            for (Employee empl: employees) {
+                employeeViews.add(mapToEmployeeView(empl));
+            }
+        }
+        return employeeViews;
     }
 
     /**
@@ -90,15 +85,14 @@ public class EmployeeServiceImpl implements EmployeeService {
             Employee employee = new Employee(view.firstName, view.secondName, view.middleName, view.position);
             citizenshipDAO.loadByCode(view.citizenshipCode).addEmployee(employee);
             employee.setOffice(officeDAO.loadById(view.officeId));
-            dao.save(employee);
             for (DocumentView docView: view.documents) {
                 TypeOfDocument type = typeDAO.loadByCode(docView.codeOfDocument);
                 Document document = new Document(docView.number);
                 document.setDateIssue(sdf.parse(docView.dateIssue));
                 type.addDocument(document);
                 employee.addDocument(document);
-                docDAO.save(document);
             }
+            dao.save(employee);
             return new ResultView("success");
         } else {
             throw new IllegalArgumentException("Not add an empty employee");
@@ -112,12 +106,44 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public ResultView updateEmployee(EmployeeView view) throws Exception {
         if (view !=null) {
-            Employee employee = mapper.map(view, Employee.class);
+            Employee employee = new Employee(view.id, view.firstName, view.secondName, view.middleName, view.position);
+            employee.setOffice(officeDAO.loadById(view.officeId));
+            for (DocumentView docView: view.documents) {
+                TypeOfDocument type = typeDAO.loadByCode(docView.codeOfDocument);
+                Document document = new Document(docView.number);
+                document.setId(docView.id);
+                document.setDateIssue(sdf.parse(docView.dateIssue));
+                type.addDocument(document);
+                employee.addDocument(document);
+               // docDAO.update(document);
+            }
+            employee.setCitizenship(citizenshipDAO.loadByCode(view.citizenshipCode));
             employee.setVersion(0);
             dao.update(employee);
             return new ResultView("success");
         } else {
             throw new IllegalArgumentException("Not update an empty employee");
+        }
+    }
+
+    private EmployeeView mapToEmployeeView (Employee employee) {
+        if (employee != null) {
+            Set<DocumentView> documentViews = new HashSet<>();
+            for (Document document : employee.getDocuments()) {
+                DocumentView documentView = mapper.map(document, DocumentView.class);
+                documentView.dateIssue = sdf.format(document.getDateIssue());
+                documentView.codeOfDocument = document.getTypeOfDocument().getCode();
+                documentView.typeOfDocument = document.getTypeOfDocument().getName();
+                documentViews.add(documentView);
+            }
+            EmployeeView view = mapper.map(employee, EmployeeView.class);
+            view.officeId = employee.getOffice().getId();
+            view.citizenshipCode = employee.getCitizenship().getCode();
+            view.citizenshipName = employee.getCitizenship().getName();
+            view.documents = documentViews;
+            return view;
+        } else {
+            throw new IllegalArgumentException("Empty Employee");
         }
     }
 }

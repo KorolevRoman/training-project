@@ -6,6 +6,7 @@ import training.training.view.EmployeeView;
 import training.training.view.ResultView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Сервис
@@ -21,12 +22,12 @@ public interface EmployeeService {
     EmployeeView getEmployeeById(Integer id) throws Exception;
 
     /**
-     * Получить сотрудника по фильтру
+     * Получить сотрудников по фильтру
      *
      * @param view
      * @return {@Employee}
      */
-    EmployeeView getEmployeeByFilter(EmployeeView view) throws Exception;
+    List<EmployeeView> getEmployeeByFilter(EmployeeView view) throws Exception;
 
     /**
      * Добавить нового сотрудника

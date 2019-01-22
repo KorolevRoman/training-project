@@ -35,4 +35,9 @@ public class DocumentDAOImpl implements DocumentDAO {
     public void save(Document document) {
         em.persist(document);
     }
+
+    @Override
+    public void update(Document document) {
+        em.merge(document);
+    }
 }

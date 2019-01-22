@@ -6,6 +6,8 @@ import training.training.service.employee.EmployeeService;
 import training.training.view.EmployeeView;
 import training.training.view.ResultView;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -33,7 +35,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/list")
-    public EmployeeView getEmployeeByFilter(@RequestBody EmployeeView view) throws Exception {
+    public List<EmployeeView> getEmployeeByFilter(@RequestBody EmployeeView view) throws Exception {
         return employeeService.getEmployeeByFilter(view);
     }
 

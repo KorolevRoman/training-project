@@ -11,10 +11,6 @@ public class Document {
     @Column
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
-
     @ManyToOne()
     @JoinColumn(name = "code")
     private TypeOfDocument typeOfDocument;
@@ -32,16 +28,16 @@ public class Document {
         this.number = number;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public void setTypeOfDocument(TypeOfDocument typeOfDocument) {
         this.typeOfDocument = typeOfDocument;
     }
 
     public TypeOfDocument getTypeOfDocument() {
         return typeOfDocument;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Date getDateIssue() {

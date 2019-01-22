@@ -32,9 +32,14 @@ public class Employee {
     private Citizenship citizenship;
 
     @OneToMany(
-            mappedBy = "employee",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @JoinTable(
+            name = "Employee_Document",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "document_id")
     )
     private Set<Document> documents;
 
@@ -43,6 +48,15 @@ public class Employee {
     private Office office;
 
     public Employee() {
+    }
+
+    public Employee(Integer id, String firstName, String secondName, String middleName, String position) {
+        this.id = id;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.middleName = middleName;
+        this.position = position;
+        this.documents = new HashSet<>();
     }
 
     public Employee(String firstName, String secondName, String middleName, String position) {
@@ -121,13 +135,18 @@ public class Employee {
         this.version = version;
     }
 
+    public void setDocuments(Set<Document> documents) {
+        this.documents = documents;
+    }
+
+
     public void addDocument(Document document){
         getDocuments().add(document);
-        document.setEmployee(this);
+        //document.setEmployee(this);
     }
 
     public void removeDocument(Document document){
         getDocuments().remove(document);
-        document.setEmployee(null);
+        //document.setEmployee(null);
     }
 }

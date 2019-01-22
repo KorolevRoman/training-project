@@ -2,6 +2,8 @@ package training.training.dao.employee;
 
 import training.training.model.Employee;
 
+import java.util.List;
+
 /**
  * DAO для работы с Employee
  */
@@ -12,7 +14,7 @@ public interface EmployeeDAO {
      * @param employee
      * @return Employee
      */
-    Employee loadByFilter(Employee employee);
+    List<Employee> loadByFilter(Employee employee);
 
     /**
      * Получить Employee по идентификатору

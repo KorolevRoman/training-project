@@ -23,8 +23,14 @@ VALUES (3, 0, 'Васильев', 'Василий', 'Васильевич', 'д�
 INSERT INTO Employee (id, version, first_name, second_name, position, citizenship, office_id)
 VALUES (4, 0, 'Сулейманов', 'Ким', 'аналитик', 398, 3);
 
-INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (1, 1, 21, '2001-11-20', '5612 321464');
-INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (2, 2, 10, '2005-08-16', '67884304');
-INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (3, 3, 21, '2010-04-23', '5612 432942');
-INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (4, 4, 12, '2018-04-23', 'ВА 432421');
-INSERT INTO Document (id, employee_id, code, date_issue, number) VALUES (5, 2, 07, '2005-08-30', 'I-КИ 432351');
+INSERT INTO Document (id, code, date_issue, number) VALUES (1, 21, '2001-11-20', '5612 321464');
+INSERT INTO Document (id, code, date_issue, number) VALUES (2, 10, '2005-08-16', '67884304');
+INSERT INTO Document (id, code, date_issue, number) VALUES (3, 21, '2010-04-23', '5612 432942');
+INSERT INTO Document (id, code, date_issue, number) VALUES (4, 12, '2018-04-23', 'ВА 432421');
+INSERT INTO Document (id, code, date_issue, number) VALUES (5, 07, '2005-08-30', 'I-КИ 432351');
+
+INSERT INTO Employee_Document(employee_id, document_id) VALUES (1, 1);
+INSERT INTO Employee_Document(employee_id, document_id) VALUES (2, 2);
+INSERT INTO Employee_Document(employee_id, document_id) VALUES (3, 3);
+INSERT INTO Employee_Document(employee_id, document_id) VALUES (4, 4);
+INSERT INTO Employee_Document(employee_id, document_id) VALUES (2, 5);
